@@ -1,0 +1,132 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-card {
+  background-color: #fff;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  transition: 0.3s ease-in-out;
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.auth-card input:focus {
+  border-color: #007bff;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.auth-card button:hover {
+  background-color: #0056b3;
+}
+
+.toggle-text {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.toggle-text button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.toggle-text button:hover {
+  text-decoration: underline;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+.toggle-text {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.password-hints {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 0.85rem;
+  color: #d32f2f;
+}
+
+.password-hints li {
+  margin: 4px 0;
+  text-decoration: none;
+}
+
+.password-hints li.valid {
+  color: #388e3c;
+  text-decoration: line-through;
+}

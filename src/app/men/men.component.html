@@ -1,0 +1,54 @@
+<div class="container-fluid my-5">
+  <h1>men</h1>
+  <div class="row">
+    <div class="col-md-3 mb-4">
+      <h5 class="mb-3">Filter by Category</h5>
+      <ul class="list-group">
+        <li class="list-group-item" [class.active]="selectedSubcategory === 'All'" (click)="filterBySubcategory('All')">
+          Show All
+        </li>
+        <li class="list-group-item" *ngFor="let sub of subcategories" [class.active]="selectedSubcategory === sub"
+          (click)="filterBySubcategory(sub)">
+          {{ sub }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-4" *ngFor="let product of filteredProducts">
+          <div class="card h-100 shadow-sm">
+            <img [src]="product.image" class="card-img-top" [alt]="product.title"
+              style="height: 250px; object-fit: cover;" />
+            <div class="card-body">
+              <h5 class="card-title">{{ product.title }}</h5>
+              <p class="text-muted mb-1">{{ product.subtitle }}</p>
+              <p class="mb-2">
+                <span class="text-warning">⭐ {{ product.rating }}</span>
+                <span class="text-muted">({{ product.reviews }} ratings)</span>
+              </p>
+              <p class="fw-bold text-success fs-5">₹{{ product.price }}
+                <span class="text-decoration-line-through text-muted fs-6 ms-2">₹{{ product.mrp }}</span>
+                <span class="badge bg-danger ms-2">-{{ product.discount }}%</span>
+              </p>
+              <p class="small text-muted">Offers: {{ product.offerSummary }}</p>
+              <P>/<span>qwerty</span>{{product.subcategory}} <span>sdfghj</span>
+              </P>
+              <ul class="small mb-2">
+                <li><strong>Material:</strong> {{ product.material }}</li>
+                <li><strong>Style:</strong> {{ product.style }}</li>
+                <li><strong>Neck:</strong> {{ product.neck }}</li>
+                <li><strong>Length:</strong> {{ product.length }}</li>
+                <li><strong>Sleeves:</strong> {{ product.sleeve }}</li>
+              </ul>
+              <p class="text-success small">✅ In stock | Delivery by {{ product.deliveryDate }}</p>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary w-100" (click)="addToCart(product)">Add to Cart</button>
+                <button class="btn btn-primary w-100" (click)="buyNow(product)">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

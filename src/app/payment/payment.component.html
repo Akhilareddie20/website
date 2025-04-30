@@ -1,0 +1,41 @@
+
+<form *ngIf="!paymentStatus" (ngSubmit)="handlePayment()" #paymentForm="ngForm">
+    <div class="mb-3">
+        <label for="address" class="form-label">Delivery Address</label>
+        <input type="text" class="form-control" id="address" [(ngModel)]="deliveryAddress" name="deliveryAddress" required />
+    </div>
+    <div class="mb-3">
+        <label for="paymentMethod" class="form-label">Payment Method</label>
+        <select class="form-select" id="paymentMethod" [(ngModel)]="paymentMethod" name="paymentMethod" required>
+            <option *ngFor="let method of paymentMethods" [value]="method">
+                {{ method }}
+            </option>
+        </select>
+    </div>
+    <div class="mb-3" *ngIf="paymentMethod === 'UPI'">
+        <label for="upiApp" class="form-label">Select UPI App</label>
+        <select class="form-select" id="upiApp" [(ngModel)]="upiApp" name="upiApp" required>
+            <option value="Paytm">Paytm</option>
+            <option value="GPay">GPay</option>
+            <option value="PhonePe">PhonePe</option>
+        </select>
+    </div>
+    <div class="mb-3" *ngIf="paymentMethod === 'Credit Card' || paymentMethod === 'Debit Card'">
+        <label for="cardNumber" class="form-label">Card Number</label>
+        <input type="text" class="form-control" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber" maxlength="16" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="totalAmount" class="form-label">Total Amount</label>
+        <input type="text" class="form-control" id="totalAmount" [value]="totalAmount" readonly />
+    </div>
+    <div class="mb-3" *ngIf="paymentMethod === 'Amazon Pay'">
+        <label for="balance" class="form-label">Available Balance (Amazon Pay)</label>
+        <input type="text" class="form-control" id="balance" [value]="availableBalance" readonly />
+    </div>
+    <button type="submit" class="btn btn-primary">Pay</button>
+</form>
+<div *ngIf="paymentStatus" [innerHTML]="paymentStatus" class="alert" 
+     [ngClass]="{'alert-success': paymentStatus.startsWith('✅'), 'alert-danger': paymentStatus.startsWith('❌')}">
+</div>
+

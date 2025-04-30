@@ -1,0 +1,29 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <form [formGroup]="loginForm" *ngIf="isLoginMode" (ngSubmit)="onLogin()">
+      <h2>Login Form</h2>
+      <input type="email" formControlName="email" placeholder="Email" />
+      <input type="password" formControlName="password" placeholder="Password" />
+      <button type="submit">Login</button>
+    </form>
+    <form [formGroup]="registerForm" *ngIf="!isLoginMode" (ngSubmit)="onRegister()">
+      <h2>Register</h2>
+      <input type="text" formControlName="name" placeholder="Name" />
+      <input type="email" formControlName="email" placeholder="Email" />
+      <input type="password" formControlName="password" placeholder="Password" />
+      <ul class="password-hints">
+        <li [class.valid]="passwordCriteria.minLength">Minimum 12 characters</li>
+        <li [class.valid]="passwordCriteria.hasUpperCase">At least one uppercase letter</li>
+        <li [class.valid]="passwordCriteria.hasLowerCase">At least one lowercase letter</li>
+        <li [class.valid]="passwordCriteria.hasNumber">At least one number</li>
+        <li [class.valid]="passwordCriteria.hasSpecialChar">At least one special character</li>
+      </ul>
+      <button type="submit">Register</button>
+    </form>
+    <p class="toggle-text">
+      <button type="button" (click)="toggleMode()">
+        {{ isLoginMode ? 'Switch to Register' : 'Switch to Login' }}
+      </button>
+    </p>
+  </div>
+</div>

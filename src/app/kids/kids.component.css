@@ -1,0 +1,35 @@
+.card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+  
+  .card-body {
+    max-height: 150px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  
+  .card:hover .card-body {
+    max-height: 1000px; /* Adjust based on content */
+  }
+  
+  .card-body p,
+  .card-body ul {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .card:hover .card-body p,
+  .card:hover .card-body ul {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  

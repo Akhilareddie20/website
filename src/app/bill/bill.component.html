@@ -1,0 +1,25 @@
+<div class="row mt-5">
+  <div class="col-md-4" *ngFor="let item of cartItems">
+    <div class="card mb-4">
+      <img [src]="item.image" class="card-img-top" alt="{{ item.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.title }}</h5>
+        <p>Subtitle: {{ item.subtitle }}</p>
+        <label for="quantity-{{ item.id }}">Quantity:</label>
+        <select
+          id="quantity-{{ item.id }}"
+          class="form-select"
+          [(ngModel)]="item.quantity"
+          (change)="updateQuantity(item)"
+        >
+          <option *ngFor="let q of quantityOptions" [value]="q">{{ q }}</option>
+        </select>
+        <p class="card-text mt-2">Price: ₹{{ item.price }}</p>
+        <p class="card-text">Subtotal: ₹{{ item.price * item.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Total Amount: ₹{{ totalAmount }}</h3>
+<button (click)="proceedToPayment()" class="btn btn-primary">Proceed to Payment</button>

@@ -1,0 +1,54 @@
+<h2 class="my-3 text-center">My Wishlist</h2>
+
+<div *ngIf="wishlist.length === 0" class="alert alert-info text-center">
+  No items in wishlist.
+</div>
+
+<div class="container">
+  <div class="card shadow-sm mb-4 p-3" *ngFor="let item of wishlist">
+    <div class="row align-items-center g-3">
+      <div class="col-md-4 text-center border-end">
+        <img [src]="item.image" class="img-fluid rounded" [alt]="item.title"
+          style="height: 200px; object-fit: cover;" />
+      </div>
+      <div class="col-md-6 px-4">
+        <div class="text-center">
+          <h4 class="card-title text-success ">{{ item.title }}</h4>
+          <h6 class="text-muted mb-3">{{ item.subtitle }}</h6>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <ul class="list-unstyled mb-0">
+              <li><strong>Material : </strong> {{ item.material }}</li>
+              <li><strong>Style : </strong> {{ item.style }}</li>
+              <li><strong>Neck : </strong> {{ item.neck }}</li>
+              <li><strong>Length : </strong> {{ item.length }}</li>
+              <li><strong>Sleeves : </strong> {{ item.sleeve }}</li>
+            </ul>
+          </div>
+          <div class="col-md-5">
+            <p class="text-muted small mb-1">Offers: {{ item.offerSummary }}</p>
+            <p class="text-muted small"><strong>Subcategory:</strong> {{ item.subcategory }}</p>
+            <p class="mb-1">
+              <span class="text-warning">⭐ {{ item.rating }}</span>
+              <span class="text-muted">({{ item.reviews }} ratings)</span>
+            </p>
+            <h6 class="fw-bold text-success">₹{{ item.price }}
+              <span class="text-decoration-line-through text-muted ms-2">₹{{ item.mrp }}</span>
+              <span class="badge bg-danger ms-2">-{{ item.discount }}%</span>
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 d-flex flex-column align-items-center justify-content-start border-start">
+        <button class="btn btn-outline-success w-100 mb-3" (click)="addToCart(item)">
+          <i class="bi bi-cart me-2"></i>Add to Cart
+        </button>
+        <button class="btn btn-outline-primary w-100 mb-3" (click)="buyNow(item)">Buy Now</button>
+        <button class="btn btn-outline-danger w-100 mb-2" (click)="removeItem(item.id!)">
+          <i class="bi bi-trash me-2"></i>Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
