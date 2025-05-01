@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
 
@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   standalone:true
 })
 export class CartComponent implements OnInit {
@@ -45,11 +45,12 @@ export class CartComponent implements OnInit {
   goToBilling(event: Event) {
     this.auth.saveCartItems(this.cartItems).subscribe({
       next: (res) => {
+        alert("cart");
         console.log("Cart saved successfully", res);
-        // Navigate to billing page
-        this.router.navigate(['/billing']);
+        this.router.navigate(['/bill']);
       },
       error: (err) => {
+        alert("error");
         console.error("Failed to save cart", err);
       }
     });

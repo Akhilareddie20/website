@@ -9,8 +9,8 @@ import { CartItem } from './cart-item.model';
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   private userEmail: string = '';
-  private userEmailSubject = new BehaviorSubject<string>(localStorage.getItem('userEmail') || '');
-  userEmail$ = this.userEmailSubject.asObservable();
+  // private userEmailSubject = new BehaviorSubject<string>(localStorage.getItem('userEmail') || '');
+  // userEmail$ = this.userEmailSubject.asObservable();
   constructor(private http: HttpClient) {}
 
   register(data: { name: string; email: string; password: string }): Observable<any> {
@@ -25,9 +25,9 @@ export class AuthService {
     localStorage.setItem('userEmail', email); // Persist across refresh
   }
 
-  // getUserEmail(): string {
-  //   return this.userEmail || localStorage.getItem('userEmail') || '';
-  // }
+  getUserEmail(): string {
+    return this.userEmail || localStorage.getItem('userEmail') || '';
+  }
   // getUserEmail(): string {
   //   return this.loggedInEmail; // Ensure this is set during login
   // }
@@ -77,19 +77,19 @@ export class AuthService {
     const userEmail = this.getUserEmail();  // Use getUserEmail to get the logged-in user's email
     return this.http.get<Profile>(`${this.apiUrl}/profile/${userEmail}`);
   }
-  etUserEmail(email: string): void {
-    this.userEmailSubject.next(email);
-    localStorage.setItem('userEmail', email);
-  }
+  // etUserEmail(email: string): void {
+  //   this.userEmailSubject.next(email);
+  //   localStorage.setItem('userEmail', email);
+  // }
 
-  getUserEmail(): string {
-    return this.userEmailSubject.getValue();
-  }
+  // getUserEmail(): string {
+  //   return this.userEmailSubject.getValue();
+  // }
 
-  clearUserEmail(): void {
-    this.userEmailSubject.next('');
-    localStorage.removeItem('userEmail');
-  }
+  // clearUserEmail(): void {
+  //   this.userEmailSubject.next('');
+  //   localStorage.removeItem('userEmail');
+  // }
   saveCartItems(cartItems: CartItem[]) {
     return this.http.post(`${this.apiUrl}/save`, cartItems);
   }
