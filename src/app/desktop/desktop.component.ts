@@ -98,7 +98,8 @@ export class DesktopComponent {
   ];
   cartCount=0;
   constructor(private cartService: CartService,private router: Router,private authservice:AuthService) {
-    this.userEmail = this.authservice.getUserEmail();
+    this.userEmail = this.authservice.getUserEmail() ?? '';
+
 
   }
   ngOnInit(): void {

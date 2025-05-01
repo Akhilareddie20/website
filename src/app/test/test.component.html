@@ -1,4 +1,4 @@
-<p>test works!</p>
+<!-- <p>test works!</p>
 
 <div class="col-4" *ngFor="let product of allProducts">
   <div class="card h-100 shadow-sm">
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- <div id="carouselExampleIndicators" class="carousel slide">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -138,3 +138,39 @@ export class ProfileComponent {
     this.router.navigate([`/${path}`]);
   } 
 }-->
+
+<!-- <div class="cart-container">
+  <h2>Your Cart</h2>
+  <div *ngFor="let item of cartItems" class="cart-item">
+    <img [src]="item.image" alt="{{ item.title }}" />
+    <div class="item-details">
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.subtitle }}</p>
+      <p><strong>Material:</strong> {{ item.material }}</p>
+      <p><strong>Rating:</strong> {{ item.rating }}</p>
+      <p><strong>Price:</strong> ${{ item.price }}</p>
+      <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+    </div>
+  </div>
+  <button (click)="saveCart()">Save Cart to Server</button>
+</div> -->
+
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card h-100 shadow-sm">
+        <img [src]="product.image" class="card-img-top" alt="{{ product.title }}" onError="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted" *ngIf="product.subtitle">{{ product.subtitle }}</h6>
+          <p class="card-text" *ngIf="product.material"><strong>Material:</strong> {{ product.material }}</p>
+          <p class="card-text"><strong>Rating:</strong> {{ product.rating || 'N/A' }}</p>
+          <p class="card-text"><strong>Quantity:</strong> {{ product.quantity }}</p>
+          <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

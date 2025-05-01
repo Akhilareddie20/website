@@ -27,7 +27,8 @@ export class ProfileComponent implements OnInit {
   constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.userEmail = this.auth.getUserEmail(); // login email
+    this.userEmail = this.auth.getUserEmail() ?? 'guest@example.com';
+    // this.userEmail = this.auth.getUserEmail(); // login email
     this.auth.getProfiles().subscribe(data => {
       this.profiles = data;
       this.findByEmail(); // auto match based on login email
@@ -44,7 +45,7 @@ export class ProfileComponent implements OnInit {
       this.notFound = true;
     }
   }
-
+  
   // submitProfile(): void {
   //   this.auth.saveProfile(this.profile).subscribe({
   //     next: (res) => {

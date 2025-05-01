@@ -19,15 +19,27 @@ export class CartComponent implements OnInit {
   productId!: string;
   constructor(private cartService: CartService,private router: Router,private auth:AuthService,private route:ActivatedRoute) {}
   private cartCountSubject = new BehaviorSubject<number>(0);
-  cartCount$ = this.cartCountSubject.asObservable();  // ✅ Exposed observable
+  cartCount$ = this.cartCountSubject.asObservable();  
+  // ngOnInit(): void {
+  //   this.cartItems = this.cartService.getCartItems().map(item => ({
+  //     ...item,
+  //     quantity: item.quantity || 1  
+  //   }));
+  //   this.calculateCartTotal();
+  //   this.productId = this.route.snapshot.paramMap.get('id')!;
+  // }
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems().map(item => ({
-      ...item,
-      quantity: item.quantity || 1  // Set default quantity to 1 if not present
-    }));
-    this.calculateCartTotal();
-    this.productId = this.route.snapshot.paramMap.get('id')!;
+    this.auth.getCartItems().subscribe({
+      next: (items) => {
+        this.cartItems = items;
+        this.calculateTotal();
+      },
+      error: (err) => {
+        console.error('Failed to fetch cart items:', err);
+      }
+    });
   }
+  
   calculateCartTotal() {
     this.totalAmount = this.cartItems.reduce((sum, item) => {
       const quantity = item.quantity || 1;
@@ -37,11 +49,6 @@ export class CartComponent implements OnInit {
   getCartItems() {
     return this.cartItems;
   }
-  // goToBilling(event: Event) {
-  //   event.preventDefault();
-  //   this.cartService.setCartItems(this.cartItems); 
-  //   this.router.navigate(['/bill']); 
-  // }
   goToBilling(event: Event) {
     this.auth.saveCartItems(this.cartItems).subscribe({
       next: (res) => {
@@ -72,8 +79,8 @@ export class CartComponent implements OnInit {
     this.calculateCartTotal();
   }
   clearCart(): void {
-    this.cartService.clearCart(); // Clear cart (local + backend)
-    this.cartItems = []; // Clear local cart items
-    this.calculateTotal(); // Reset total amount
+    this.cartService.clearCart(); 
+    this.cartItems = []; 
+    this.calculateTotal(); 
   }
 }
