@@ -116,10 +116,7 @@ export class MenComponent implements OnInit {
         console.error('Error fetching products:', err);
       }
     });
-
-    // Subscribe to cart updates to get the latest cart count
     this.cartService.cartCount$.subscribe(count => {
-      // Handle any UI updates with the updated cart count if needed
     });
   }
 

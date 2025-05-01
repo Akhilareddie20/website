@@ -3,31 +3,31 @@ import { CartService } from '../cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  imports: [CommonModule, FormsModule,RouterModule],
-  standalone:true
+  imports: [CommonModule, FormsModule, RouterModule],
+  standalone: true
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
   totalAmount: number = 0;
   productId!: string;
-  constructor(private cartService: CartService,private router: Router,private auth:AuthService,private route:ActivatedRoute) {}
+
   private cartCountSubject = new BehaviorSubject<number>(0);
-  cartCount$ = this.cartCountSubject.asObservable();  
-  // ngOnInit(): void {
-  //   this.cartItems = this.cartService.getCartItems().map(item => ({
-  //     ...item,
-  //     quantity: item.quantity || 1  
-  //   }));
-  //   this.calculateCartTotal();
-  //   this.productId = this.route.snapshot.paramMap.get('id')!;
-  // }
+  cartCount$ = this.cartCountSubject.asObservable();
+
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private auth: AuthService,
+    private route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
     this.auth.getCartItems().subscribe({
       next: (items) => {
@@ -39,45 +39,49 @@ export class CartComponent implements OnInit {
       }
     });
   }
-  
-  calculateCartTotal() {
-    this.totalAmount = this.cartItems.reduce((sum, item) => {
+
+  calculateTotal(): void {
+    this.totalAmount = this.cartItems.reduce((acc, item) => {
       const quantity = item.quantity || 1;
-      return sum + (item.price * quantity);
+      return acc + item.price * quantity;
     }, 0);
+    this.updateCartCount();
   }
-  getCartItems() {
+
+  getCartItems(): any[] {
     return this.cartItems;
   }
-  goToBilling(event: Event) {
+
+  goToBilling(event: Event): void {
     this.auth.saveCartItems(this.cartItems).subscribe({
       next: (res) => {
-        alert("cart");
-        console.log("Cart saved successfully", res);
+        alert('Cart saved successfully!');
+        console.log('Cart saved successfully', res);
         this.router.navigate(['/bill']);
       },
       error: (err) => {
-        alert("error");
-        console.error("Failed to save cart", err);
+        alert('Failed to save cart!');
+        console.error('Failed to save cart', err);
       }
     });
   }
-  
-  setCartItems(items: any[]) {
+
+  setCartItems(items: any[]): void {
     this.cartItems = items;
     this.updateCartCount();
+    this.calculateTotal();
   }
-  private updateCartCount() {
+
+  private updateCartCount(): void {
     const count = this.cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
     this.cartCountSubject.next(count);
   }
-  calculateTotal(): void {
-    this.totalAmount = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  }
-  removeFromCart(id: number) {
+
+  removeFromCart(id: number): void {
     this.cartItems = this.cartItems.filter(item => item.id !== id);
-    this.calculateCartTotal();
+    this.calculateTotal();
   }
+
   clearCart(): void {
     this.cartService.clearCart(); 
     this.cartItems = []; 

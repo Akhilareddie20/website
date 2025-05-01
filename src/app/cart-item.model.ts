@@ -1,5 +1,4 @@
-export interface CartItem {
-  id: number;          // ✅ Ensure this field is defined
+export interface CartItem {    // ✅ Ensure this field is defined
   email: string;
   image: string;
   title: string;
