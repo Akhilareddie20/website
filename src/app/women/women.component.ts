@@ -39,20 +39,29 @@ export class WomenComponent implements OnInit {
   }
   wishlist: any[] = [];
   ngOnInit(): void {
-    this.authService.getkidsproducts().subscribe({
+    this.authService.getwomenproducts().subscribe({
       next: (data: any[]) => {
+        console.log('Fetched Products:', data);
         this.allProducts = data;
         this.filteredProducts = [...this.allProducts];
       },
-      error: err => console.error('Error fetching products:', err)
+      error: (err) => {
+        console.error('Error fetching products:', err);
+      }
     });
-  
-    this.authService.getWishlist().subscribe({
-      next: (data: any[]) => {
-        this.wishlist = data;
-      },
-      error: err => console.error('Error fetching wishlist:', err)
-    });
+  }
+  goToWishlist(): void {
+    this.router.navigate(['/wishlist']);
+  }
+  filterBySubcategory(sub: string): void {
+    this.selectedSubcategory = sub;
+    this.filteredProducts = sub === 'All'
+      ? [...this.allProducts]
+      : this.allProducts.filter(p => p.subcategory === sub);
+  }
+  addToCart(product: any) {
+    this.cartService.addToCart(product);
+    alert('Added to cart!');
   }
   addToWishlist(product: any): void {
     const alreadyExists = this.wishlist.some(item =>
@@ -87,7 +96,7 @@ export class WomenComponent implements OnInit {
   
     this.authService.postwishlist(wishlistItem).subscribe({
       next: (res) => {
-        this.wishlist.push(wishlistItem);  // update local wishlist
+        this.wishlist.push(wishlistItem);  
         alert('Added to wishlist!');
       },
       error: (err) => {
@@ -95,10 +104,6 @@ export class WomenComponent implements OnInit {
         alert('An error occurred while adding to wishlist.');
       }
     });
-  }
-  addToCart(product: any) {
-    this.cartService.addToCart(product);
-    alert('Added to cart!');
   }
   
   buyNow(product: any) {

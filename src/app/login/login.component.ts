@@ -57,6 +57,10 @@ export class LoginComponent implements OnInit {
       if (matched) {
         alert('✅ Login successful');
         this.router.navigate(['/desktop']);
+       
+        this.auth.setUserEmail(email);
+        alert(email);
+        
       } else {
         alert('❌ Invalid credentials');
       }

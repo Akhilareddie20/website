@@ -13,6 +13,9 @@ import { KidsComponent } from './kids/kids.component';
 import { PaymentComponent } from './payment/payment.component';
 import { OrderstatusComponent } from './orderstatus/orderstatus.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { ProfileComponent } from './Account/Account.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     KidsComponent,
     PaymentComponent,
     OrderstatusComponent,
-    WishlistComponent
+    WishlistComponent,
+    ProfileComponent,
+    HelpCenterComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

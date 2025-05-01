@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../cart.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -77,6 +78,7 @@ export class DesktopComponent {
     // Add more products here
   ];
 
+  userEmail: string = '';
 
   filteredProducts = [...this.products]; // Default view: all
   selectedCategory: string = 'All';
@@ -95,14 +97,16 @@ export class DesktopComponent {
     { name: 'Raj', message: 'Affordable prices and genuine products.' }
   ];
   cartCount=0;
-  constructor(private cartService: CartService,private router: Router) {
-  
+  constructor(private cartService: CartService,private router: Router,private authservice:AuthService) {
+    this.userEmail = this.authservice.getUserEmail();
+
   }
   ngOnInit(): void {
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
     });
   }
+  
   addToCart(product: any) {
     this.cartService.addToCart(product);
   }

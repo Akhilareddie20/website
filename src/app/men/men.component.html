@@ -1,5 +1,5 @@
+<p>men works!</p>
 <div class="container-fluid my-5">
-  <h1>men</h1>
   <div class="row">
     <div class="col-md-3 mb-4">
       <h5 class="mb-3">Filter by Category</h5>
@@ -15,23 +15,31 @@
     </div>
     <div class="col-md-9">
       <div class="row">
-        <div class="col-4" *ngFor="let product of filteredProducts">
+        <div class="col-4 mt-4 mb-3" *ngFor="let product of filteredProducts">
           <div class="card h-100 shadow-sm">
             <img [src]="product.image" class="card-img-top" [alt]="product.title"
               style="height: 250px; object-fit: cover;" />
             <div class="card-body">
-              <h5 class="card-title">{{ product.title }}</h5>
-              <p class="text-muted mb-1">{{ product.subtitle }}</p>
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-9">
+                    <h4 class="card-title">{{ product.title }}</h4>
+                    <h5 class="text-muted mb-1">{{ product.subtitle }}</h5>
+                  </div>
+                  <div class="col-3"><button (click)="addToWishlist(product)" class="btn btn-outline-danger"><i class="far fa-heart"></i></button>
+                  </div>
+                </div>
+              </div>
               <p class="mb-2">
                 <span class="text-warning">⭐ {{ product.rating }}</span>
                 <span class="text-muted">({{ product.reviews }} ratings)</span>
               </p>
-              <p class="fw-bold text-success fs-5">₹{{ product.price }}
+              <h6 class="fw-bold text-success fs-5">₹{{ product.price }}
                 <span class="text-decoration-line-through text-muted fs-6 ms-2">₹{{ product.mrp }}</span>
                 <span class="badge bg-danger ms-2">-{{ product.discount }}%</span>
-              </p>
+              </h6>
               <p class="small text-muted">Offers: {{ product.offerSummary }}</p>
-              <P>/<span>qwerty</span>{{product.subcategory}} <span>sdfghj</span>
+              <P>{{product.subcategory}}
               </P>
               <ul class="small mb-2">
                 <li><strong>Material:</strong> {{ product.material }}</li>
@@ -40,6 +48,7 @@
                 <li><strong>Length:</strong> {{ product.length }}</li>
                 <li><strong>Sleeves:</strong> {{ product.sleeve }}</li>
               </ul>
+
               <p class="text-success small">✅ In stock | Delivery by {{ product.deliveryDate }}</p>
               <div class="d-flex gap-2">
                 <button class="btn btn-outline-primary w-100" (click)="addToCart(product)">Add to Cart</button>

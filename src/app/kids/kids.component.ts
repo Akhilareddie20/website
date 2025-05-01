@@ -15,7 +15,7 @@ export class KidsComponent implements OnInit {
   allProducts: any[] = [];
   filteredProducts: any[] = [];
   selectedSubcategory: string = 'All';
-  subcategories: string[] = ['T-Shirts', 'Shirts', 'Shoes', 'Sandals', 'Jeans', 'Watches', 'Sunglasses', 'Pants', 'Boots', 'Jackets'];
+  subcategories: string[] = ['Tops', 'Dresses', 'Shoes', 'Sandals', 'Jeans', 'Watches', 'Sunglasses', 'Pants', 'Boots', 'Jackets'];
 
   constructor(
     private authService: AuthService,
@@ -23,16 +23,6 @@ export class KidsComponent implements OnInit {
     private router: Router
   ) {}
   wishlist: any[] = [];
-
-  // ngOnInit(): void {
-  //   this.authService.getkidsproducts().subscribe({
-  //     next: (data: any[]) => {
-  //       this.allProducts = data;
-  //       this.filteredProducts = [...this.allProducts];
-  //     },
-  //     error: err => console.error('Error fetching products:', err)
-  //   });
-  // }
   ngOnInit(): void {
     this.authService.getkidsproducts().subscribe({
       next: (data: any[]) => {
@@ -57,46 +47,6 @@ export class KidsComponent implements OnInit {
       ? [...this.allProducts]
       : this.allProducts.filter(p => p.subcategory === sub);
   }
-  // addToWishlist(product: any): void {
-  //   const wishlistItem = {
-  //     title: product.title,
-  //     subtitle: product.subtitle,
-  //     image: 'https://example.com/images/' + product.image, // Or use full URL if already hosted
-  //     rating: parseFloat(product.rating),                   // Convert to number
-  //     reviews: product.reviews,
-  //     price: product.price,
-  //     mrp: product.mrp,
-  //     discount: product.discount,
-  //     offerSummary: product.offerSummary || "",             // Set default empty string if null
-  //     material: product.material,
-  //     style: product.style,
-  //     neck: product.neck,
-  //     length: product.length,
-  //     sleeve: product.sleeve,
-  //     deliveryDate: product.deliveryDate || null,           // Ensure null or valid date string
-  //     subcategory: product.subcategory
-  //   };
-  
-  //   alert('Sending to wishlist:\n' + JSON.stringify(wishlistItem, null, 2));
-  //   console.log('Posting wishlist item:', wishlistItem);
-  
-  //   this.authService.postwishlist(wishlistItem).subscribe({
-  //     next: (res) => {
-  //       console.log('Wishlist added:', res);
-  //       alert('Added to wishlist!');
-  //     },
-      
-  //     error: (err) => {
-  //       console.error('Error adding to wishlist:', err);
-  //       if (err.error) {
-  //         console.log('Error details:', err.error);
-  //         alert(`Error: ${JSON.stringify(err.error)}`);
-  //       } else {
-  //         alert('An unexpected error occurred.');
-  //       }
-  //     }
-  //   });
-  // }
   addToCart(product: any): void {
     this.cartservice.addToCart(product);
     alert('Added to cart!');
@@ -134,7 +84,7 @@ export class KidsComponent implements OnInit {
   
     this.authService.postwishlist(wishlistItem).subscribe({
       next: (res) => {
-        this.wishlist.push(wishlistItem);  // update local wishlist
+        this.wishlist.push(wishlistItem);  
         alert('Added to wishlist!');
       },
       error: (err) => {

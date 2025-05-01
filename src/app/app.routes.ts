@@ -10,6 +10,9 @@ import { KidsComponent } from './kids/kids.component';
 import { PaymentComponent } from './payment/payment.component';
 import { OrderstatusComponent } from './orderstatus/orderstatus.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AccountComponent } from './account/account.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,5 +26,8 @@ export const appRoutes: Routes = [
   { path: 'kids', component: KidsComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'order', component: OrderstatusComponent },
-  {path:'wishlist',component:WishlistComponent}
+  {path:'wishlist',component:WishlistComponent},
+  {path:"account",component:AccountComponent},
+  {path:'profile',component:ProfileComponent},
+  {path:'helpcenter',component:HelpCenterComponent}
 ];

@@ -105,7 +105,7 @@ export class MenComponent implements OnInit {
   ];
 
   constructor(private authService: AuthService, private cartService: CartService, private router: Router) {}
-
+  wishlist: any[] = [];
   ngOnInit(): void {
     this.authService.getmenproducts().subscribe({
       next: (data: any[]) => {
@@ -129,7 +129,48 @@ export class MenComponent implements OnInit {
       ? [...this.allProducts]
       : this.allProducts.filter(p => p.subcategory === sub);
   }
-
+  addToWishlist(product: any): void {
+    const alreadyExists = this.wishlist.some(item =>
+      item.title === product.title &&
+      item.subtitle === product.subtitle &&
+      item.price === product.price
+    );
+  
+    if (alreadyExists) {
+      alert('Item is already in your wishlist!');
+      return;
+    }
+  
+    const wishlistItem = {
+      title: product.title,
+      subtitle: product.subtitle,
+      image: 'https://example.com/images/' + product.image,
+      rating: parseFloat(product.rating),
+      reviews: product.reviews,
+      price: product.price,
+      mrp: product.mrp,
+      discount: product.discount,
+      offerSummary: product.offerSummary || "",
+      material: product.material,
+      style: product.style,
+      neck: product.neck,
+      length: product.length,
+      sleeve: product.sleeve,
+      deliveryDate: product.deliveryDate || null,
+      subcategory: product.subcategory
+    };
+  
+    this.authService.postwishlist(wishlistItem).subscribe({
+      next: (res) => {
+        this.wishlist.push(wishlistItem);  // update local wishlist
+        alert('Added to wishlist!');
+      },
+      error: (err) => {
+        console.error('Error adding to wishlist:', err);
+        alert('An error occurred while adding to wishlist.');
+      }
+    });
+  } 
   addToCart(product: any) {
     this.cartService.addToCart(product);  // Adds to the cart and updates the cart count
     alert('Added to cart!');

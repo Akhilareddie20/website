@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+      <div class="col-5 d-flex flex-column">
+        <button class="btn btn-outline-dark w-50 mb-3" (click)="navigateTo('profile')">👤 Profile</button>
+        <button class="btn btn-outline-dark w-50 mb-3" (click)="navigateTo('order')">🛒 Orders</button>
+        <button class="btn btn-outline-dark w-50 mb-3" (click)="navigateTo('wishlist')">❤️ Wishlist</button>
+        <button class="btn btn-outline-dark w-50 mb-3" (click)="navigateTo('coupons')">🎟️ Coupons</button>
+        <button class="btn btn-outline-dark w-50 mb-3" (click)="navigateTo('helpcenter')">❓ Help Center</button>
+      </div>
+  
+      <div class="col-7">
+        <div *ngIf="selectedSection === 'profile'">
+          <h4>Profile Info</h4>
+          <!-- Add profile details form or display here -->
+        </div>
+  
+        <div *ngIf="selectedSection === 'order'">
+          <h4>Your Orders</h4>
+        </div>
+  
+        <div *ngIf="selectedSection === 'wishlist'">
+          <h4>Your Wishlist</h4>
+        </div>
+  
+        <div *ngIf="selectedSection === 'coupons'">
+          <h4>Available Coupons</h4>
+        </div>
+  
+        <div *ngIf="selectedSection === 'helpcenter'">
+          <h4>Help Center</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  

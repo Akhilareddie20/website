@@ -1,0 +1,107 @@
+<h2 style="text-align: center; margin-bottom: 20px;">
+  👤 Your Profile
+</h2>
+
+<div *ngIf="matchedProfile" class="profile-card">
+  <div class="card">
+    <h3>👤 {{ matchedProfile.name }}</h3>
+    <p>📧 <strong>Email:</strong> {{ matchedProfile.email }}</p>
+    <!-- <h6>Address:</h6> -->
+    <div *ngIf="matchedProfile.address; else noAddress">
+      <!-- <div class="d-flex ">
+        <h4>📍 Address:</h4>
+        <button class="btn btn-outline-danger">Edit</button>
+      </div> 
+      <div class="d-flex">
+      </div>-->
+      <div class="row">
+        <div class="col-6">
+          <h4 class="mb-0">📍 Address:</h4>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-2"> <button class="btn btn-outline-danger">Edit</button></div>
+      </div>
+      <ul class="address-list ms-5">
+        <li>🏠 <strong>Plot:</strong> {{ matchedProfile.address.plot }}</li>
+        <li>🛣️ <strong>Street:</strong> {{ matchedProfile.address.street }}</li>
+        <li>🏘️ <strong>Village:</strong> {{ matchedProfile.address.village }}</li>
+        <li>🗺️ <strong>District:</strong> {{ matchedProfile.address.district }}</li>
+        <li>🏳️ <strong>State:</strong> {{ matchedProfile.address.state }}</li>
+      </ul>
+    </div>
+
+    <ng-template #noAddress>
+      <p>🚨 <em>No address available.</em></p>
+    </ng-template>
+  </div>
+</div>
+
+<p *ngIf="notFound" class="error-text">
+  🚫 No profile found for the logged-in email.
+</p>
+
+<!-- <h2 class="text-center">Edit Your Address</h2>
+<div *ngIf="matchedProfile" class="profile-container">
+  <div class="profile-info">
+    <p><strong>Name:</strong> {{ matchedProfile.name }}</p>
+    <p><strong>Email:</strong> {{ matchedProfile.email }}</p>
+
+    <h3>Edit Address</h3>
+    <form (ngSubmit)="updateAddress()">
+      <div class="form-group">
+        <label for="plot">Plot:</label>
+        <input id="plot" [(ngModel)]="updatedAddress.plot" name="plot" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="village">Village:</label>
+        <input id="village" [(ngModel)]="updatedAddress.village" name="village" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="street">Street:</label>
+        <input id="street" [(ngModel)]="updatedAddress.street" name="street" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="district">District:</label>
+        <input id="district" [(ngModel)]="updatedAddress.district" name="district" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input id="state" [(ngModel)]="updatedAddress.state" name="state" required class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Address</button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="!matchedProfile" class="loading">
+  <p>Loading profile...</p>
+</div>
+
+<div *ngIf="notFound" class="error-message">
+  <p class="text-danger">No profile found for the logged-in email.</p>
+</div> -->
+
+
+<!-- <h2>Profile Details</h2>
+
+<div *ngIf="matchedProfile">
+  <p><strong>Name:</strong> {{ matchedProfile.name }}</p>
+  <p><strong>Email:</strong> {{ matchedProfile.email }}</p>
+
+  <div *ngIf="matchedProfile.address; else noAddress">
+    <p><strong>Address:</strong></p>
+    <ul>
+      <li>Plot: {{ matchedProfile.address.plot }}</li>
+      <li>Street: {{ matchedProfile.address.street }}</li>
+      <li>Village: {{ matchedProfile.address.village }}</li>
+      <li>District: {{ matchedProfile.address.district }}</li>
+      <li>State: {{ matchedProfile.address.state }}</li>
+    </ul>
+  </div>
+  <ng-template #noAddress>
+    <p>No address available.</p>
+  </ng-template>
+</div>
+
+<p *ngIf="notFound" style="color: red;">No profile found for the logged-in email.</p> -->
