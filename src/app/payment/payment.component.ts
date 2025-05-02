@@ -43,24 +43,22 @@ export class PaymentComponent implements OnInit {
       this.calculatetotalamount(); // fallback if needed
     }
   }
-  
-
   handlePayment() {
     if (this.totalAmount === 0) {
       this.paymentStatus = '❌ Your cart is empty. Please add items before proceeding to payment.';
       return;
     }
-
+  
     if (!this.deliveryAddress || !this.paymentMethod) {
       this.paymentStatus = '❌ Please fill all required fields.';
       return;
     }
-
+  
     if (this.paymentMethod.toLowerCase().includes('card') && this.cardNumber.length !== 16) {
       this.paymentStatus = '❌ Invalid card number. Must be 16 digits.';
       return;
     }
-
+  
     if (this.paymentMethod === 'Amazon Pay') {
       if (this.totalAmount > this.availableBalance) {
         this.paymentStatus = '❌ Insufficient Amazon Pay balance.';
@@ -69,49 +67,11 @@ export class PaymentComponent implements OnInit {
         this.availableBalance -= this.totalAmount;
       }
     }
-
-    this.paymentStatus = '✅ Payment Successful!<br>Order details are updated in the order status.';
-    alert('Payment is successfully done');
-    alert('Thank you for shopping!');
-    this.cartService.clearCart();
-    this.totalAmount = 0;
-    this.cardNumber = '';
-    this.paymentMethod = '';
-    this.deliveryAddress = '';
-    alert("order");
-    if (this.paymentStatus) {
-      const order = {
-        items: this.cartItems.map(item => ({
-          id: item.id,
-          title: item.title,
-          subtitle: item.subtitle,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.image,
-          material: item.material,
-          style: item.style,
-          neck: item.neck,
-          length: item.length,
-          sleeve: item.sleeve,
-          offerSummary: item.offerSummary,
-          mrp: item.mrp,
-          discount: item.discount,
-          rating: item.rating,
-          reviews: item.reviews,
-          subcategory: item.subcategory,
-        })),
-        deliveryDate: new Date(),
-        trackingAddress: this.deliveryAddress,
-      };
-      this.orderService.setOrders([order]); 
-
-      this.router.navigate(['/order']);
-
-      this.cartService.clearCart();
-    }
-  }
-  completePayment() {
-    alert('Payment completed successfully!');
+  
+    this.paymentStatus = '✅ Payment Successful!';
+  
+    alert('Thank you for your payment!');
+  
     this.router.navigate(['/bill'], {
       state: {
         cartItems: this.cartItems,
@@ -121,7 +81,62 @@ export class PaymentComponent implements OnInit {
         orderDate: new Date()
       }
     });
-    
-    
+  
+    this.cartService.clearCart(); // Clear after redirect
   }
+  
+
+  // handlePayment() {
+  //   if (this.totalAmount === 0) {
+  //     this.paymentStatus = '❌ Your cart is empty. Please add items before proceeding to payment.';
+  //     return;
+  //   }
+
+  //   if (!this.deliveryAddress || !this.paymentMethod) {
+  //     this.paymentStatus = '❌ Please fill all required fields.';
+  //     return;
+  //   }
+
+  //   if (this.paymentMethod.toLowerCase().includes('card') && this.cardNumber.length !== 16) {
+  //     this.paymentStatus = '❌ Invalid card number. Must be 16 digits.';
+  //     return;
+  //   }
+
+  //   if (this.paymentMethod === 'Amazon Pay') {
+  //     if (this.totalAmount > this.availableBalance) {
+  //       this.paymentStatus = '❌ Insufficient Amazon Pay balance.';
+  //       return;
+  //     } else {
+  //       this.availableBalance -= this.totalAmount;
+  //     }
+  //   }
+
+  //   this.paymentStatus = '✅ Payment Successful!<br>Order details are updated in the order status.';
+  //   alert('Payment is successfully done');
+  //   alert('Thank you for shopping!');
+  //   this.cartService.clearCart();
+  //   this.totalAmount = 0;
+  //   this.cardNumber = '';
+  //   this.paymentMethod = '';
+  //   this.deliveryAddress = '';
+  //   alert("order");
+  //   if (this.paymentStatus) {
+  //     const orderDate = new Date();
+  //     const orderData = {
+  //       cartItems: this.cartItems,
+  //       totalAmount: this.totalAmount,
+  //       paymentMethod: this.paymentMethod,
+  //       deliveryAddress: this.deliveryAddress,
+  //       orderDate
+  //     };
+  //     localStorage.setItem('lastOrder', JSON.stringify(orderData));
+    
+  //     this.router.navigate(['/bill'], {
+  //       state: orderData
+  //     });
+    
+  //     this.cartService.clearCart();
+  //   }
+    
+  // }
 }

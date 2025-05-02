@@ -29,11 +29,14 @@
         <input type="text" class="form-control" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber"
             maxlength="16" required />
     </div>
+    
     <div class="mb-3" *ngIf="paymentMethod === 'Amazon Pay'">
         <label for="balance" class="form-label">Available Balance (Amazon Pay)</label>
         <input type="text" class="form-control" id="balance" [value]="availableBalance" readonly />
     </div>
-    <button type="submit" class="btn btn-success" (click)="completePayment()">Complete Payment</button>
+    <!-- <button type="submit" class="btn btn-success">Complete Payment</button> -->
+    <button class="btn btn-success" (click)="handlePayment()">Complete Payment</button>
+
 </form>
 <div *ngIf="paymentStatus" [innerHTML]="paymentStatus" class="alert"
     [ngClass]="{'alert-success': paymentStatus.startsWith('✅'), 'alert-danger': paymentStatus.startsWith('❌')}">

@@ -20,22 +20,38 @@ export class BillComponent implements OnInit {
 
   constructor(private router: Router) {}
 
+  // ngOnInit(): void {
+  //   const nav = this.router.getCurrentNavigation();
+  //   const state = nav?.extras?.state;
+
+  //   if (state && state['cartItems']) {
+  //     this.cartItems = state['cartItems'];
+  //     this.totalAmount = state['totalAmount'];
+  //     this.paymentMethod = state['paymentMethod'];
+  //     this.deliveryAddress = state['deliveryAddress'];
+  //     this.orderDate = new Date(state['orderDate']);
+  //   } else {
+  //     alert('No order data found. Redirecting...');
+  //     this.router.navigate(['/cart']);
+  //   }
+  // }
   ngOnInit(): void {
     const nav = this.router.getCurrentNavigation();
-    const state = nav?.extras?.state;
+const state = nav?.extras?.state;
 
-    if (state && state['cartItems']) {
-      this.cartItems = state['cartItems'];
-      this.totalAmount = state['totalAmount'];
-      this.paymentMethod = state['paymentMethod'];
-      this.deliveryAddress = state['deliveryAddress'];
-      this.orderDate = new Date(state['orderDate']);
-    } else {
-      alert('No order data found. Redirecting...');
-      this.router.navigate(['/cart']);
-    }
+if (state && state['cartItems']) {
+  this.cartItems = state['cartItems'];
+  this.totalAmount = state['totalAmount'];
+  this.paymentMethod = state['paymentMethod'];
+  this.deliveryAddress = state['deliveryAddress'];
+  this.orderDate = new Date(state['orderDate']);
+} else {
+  alert('No order data found. Redirecting...');
+  this.router.navigate(['/cart']);
+}
+
   }
-
+  
   downloadBillPDF(): void {
         const doc = new jsPDF();
         doc.setFontSize(16);

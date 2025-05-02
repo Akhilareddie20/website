@@ -1,38 +1,3 @@
-<!-- <div class="container mt-4">
-  <h2>Order Confirmation</h2>
-
-  <p><strong>Date:</strong> {{ orderDate | date }}</p>
-  <p><strong>Payment Method:</strong> {{ paymentMethod }}</p>
-  <p><strong>Delivery Address:</strong> {{ deliveryAddress }}</p>
-  <p><strong>Total Amount Paid:</strong> ${{ totalAmount }}</p>
-
-  <hr />
-
-  <h4>Ordered Items:</h4>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>S.No</th>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Unit Price</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cartItems; index as i">
-        <td>{{ i + 1 }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>${{ item.price }}</td>
-        <td>${{ item.price * item.quantity }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button class="btn btn-success" (click)="downloadBillPDF()">Download PDF</button>
-</div> -->
-
 <div class="container mt-4">
   <h2>Order Summary</h2>
   <p><strong>Date:</strong> {{ orderDate | date }}</p>
