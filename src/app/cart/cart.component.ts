@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -10,23 +9,16 @@ import { BehaviorSubject } from 'rxjs';
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
+  standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  standalone: true
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
   totalAmount: number = 0;
-  productId!: string;
-
   private cartCountSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCountSubject.asObservable();
 
-  constructor(
-    private cartService: CartService,
-    private router: Router,
-    private auth: AuthService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.auth.getCartItems().subscribe({
@@ -34,47 +26,23 @@ export class CartComponent implements OnInit {
         this.cartItems = items;
         this.calculateTotal();
       },
-      error: (err) => {
-        console.error('Failed to fetch cart items:', err);
-      }
+      error: (err) => console.error('Fetch error:', err),
     });
   }
 
   calculateTotal(): void {
-    this.totalAmount = this.cartItems.reduce((acc, item) => {
-      const quantity = item.quantity || 1;
-      return acc + item.price * quantity;
-    }, 0);
+    this.totalAmount = this.cartItems.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
     this.updateCartCount();
   }
 
-  getCartItems(): any[] {
-    return this.cartItems;
-  }
-
-  goToBilling(event: Event): void {
-    this.auth.saveCartItems(this.cartItems).subscribe({
-      next: (res) => {
-        alert('Cart saved successfully!');
-        console.log('Cart saved successfully', res);
-        this.router.navigate(['/bill']);
-      },
-      error: (err) => {
-        alert('Failed to save cart!');
-        console.error('Failed to save cart', err);
+  goToPayment(): void {
+    alert("payment");
+    this.router.navigate(['/payment'], {
+      state: {
+        cartItems: this.cartItems,
+        totalAmount: this.totalAmount
       }
     });
-  }
-
-  setCartItems(items: any[]): void {
-    this.cartItems = items;
-    this.updateCartCount();
-    this.calculateTotal();
-  }
-
-  private updateCartCount(): void {
-    const count = this.cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    this.cartCountSubject.next(count);
   }
 
   removeFromCart(id: number): void {
@@ -82,9 +50,8 @@ export class CartComponent implements OnInit {
     this.calculateTotal();
   }
 
-  clearCart(): void {
-    this.cartService.clearCart(); 
-    this.cartItems = []; 
-    this.calculateTotal(); 
+  private updateCartCount(): void {
+    const count = this.cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    this.cartCountSubject.next(count);
   }
 }

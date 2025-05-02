@@ -34,12 +34,16 @@ export class PaymentComponent implements OnInit {
   calculatetotalamount() {
     this.totalAmount = this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   }
-
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.totalAmount = +params['totalAmount'] || 0;
-    });
+    const state = window.history.state;
+    this.totalAmount = state.totalAmount || 0;
+    this.cartItems = state.cartItems || [];
+  
+    if (this.cartItems.length === 0 || this.totalAmount === 0) {
+      this.calculatetotalamount(); // fallback if needed
+    }
   }
+  
 
   handlePayment() {
     if (this.totalAmount === 0) {
@@ -105,5 +109,19 @@ export class PaymentComponent implements OnInit {
 
       this.cartService.clearCart();
     }
+  }
+  completePayment() {
+    alert('Payment completed successfully!');
+    this.router.navigate(['/bill'], {
+      state: {
+        cartItems: this.cartItems,
+        totalAmount: this.totalAmount,
+        paymentMethod: this.paymentMethod,
+        deliveryAddress: this.deliveryAddress,
+        orderDate: new Date()
+      }
+    });
+    
+    
   }
 }

@@ -57,8 +57,7 @@ export class KidsComponent implements OnInit {
   }
   addToCart(product: any): void {
     const cartItem: CartItem = {
-     // or it can be left out if it's auto-generated on the backend
-      email: this.userEmail,  // Make sure userEmail is defined correctly
+      email: this.userEmail,
       image: product.image,
       title: product.title,
       subtitle: product.subtitle,
@@ -67,8 +66,6 @@ export class KidsComponent implements OnInit {
       quantity: 1,
       price: product.price
     };
-
-    // Log cartItem to verify correct data structure
     console.log('CartItem to be saved:', cartItem);
 
     this.cartItems.push(cartItem);

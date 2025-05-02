@@ -18,20 +18,34 @@ export class CartService {
     }
   }
 
-  getCartItems(): any[] {
-    return this.cartItems;
-  }
+  // getCartItems(): any[] {
+  //   return this.cartItems;
+  // }
 
-  getTotalAmount(): number {
-    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  }
+  // getTotalAmount(): number {
+  //   return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  // }
   setBuyNowItem(product: any) {
       this.buyNowItem = product;
     }
   clearCart() {
     this.cartItems = [];
   }
-  setCartItems(items: any[]) {
-    this.cartItems = items;
-  }
+  // setCartItems(items: any[]) {
+  //   this.cartItems = items;
+  // }
+  private items: any[] = [];
+
+setCartItems(items: any[]) {
+  this.items = items;
+}
+
+getCartItems(): any[] {
+  return this.items;
+}
+
+getTotalAmount(): number {
+  return this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
+
 }

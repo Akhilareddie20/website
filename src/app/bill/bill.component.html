@@ -1,25 +1,67 @@
-<div class="row mt-5">
-  <div class="col-md-4" *ngFor="let item of cartItems">
-    <div class="card mb-4">
-      <img [src]="item.image" class="card-img-top" alt="{{ item.name }}">
-      <div class="card-body">
-        <h5 class="card-title">{{ item.title }}</h5>
-        <p>Subtitle: {{ item.subtitle }}</p>
-        <label for="quantity-{{ item.id }}">Quantity:</label>
-        <select
-          id="quantity-{{ item.id }}"
-          class="form-select"
-          [(ngModel)]="item.quantity"
-          (change)="updateQuantity(item)"
-        >
-          <option *ngFor="let q of quantityOptions" [value]="q">{{ q }}</option>
-        </select>
-        <p class="card-text mt-2">Price: ₹{{ item.price }}</p>
-        <p class="card-text">Subtotal: ₹{{ item.price * item.quantity }}</p>
-      </div>
-    </div>
+<!-- <div class="container mt-4">
+  <h2>Order Confirmation</h2>
+
+  <p><strong>Date:</strong> {{ orderDate | date }}</p>
+  <p><strong>Payment Method:</strong> {{ paymentMethod }}</p>
+  <p><strong>Delivery Address:</strong> {{ deliveryAddress }}</p>
+  <p><strong>Total Amount Paid:</strong> ${{ totalAmount }}</p>
+
+  <hr />
+
+  <h4>Ordered Items:</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.price }}</td>
+        <td>${{ item.price * item.quantity }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-success" (click)="downloadBillPDF()">Download PDF</button>
+</div> -->
+
+<div class="container mt-4">
+  <h2>Order Summary</h2>
+  <p><strong>Date:</strong> {{ orderDate | date }}</p>
+  <p><strong>Delivery Address:</strong> {{ deliveryAddress }}</p>
+  <p><strong>Payment Method:</strong> {{ paymentMethod }}</p>
+
+  <div *ngIf="cartItems.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.title }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.price }}</td>
+          <td>${{ item.price * item.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Total Paid: ${{ totalAmount }}</h4>
+
+    <button class="btn btn-primary" (click)="generatePDF()">Download PDF</button>
   </div>
 </div>
 
-<h3>Total Amount: ₹{{ totalAmount }}</h3>
-<button (click)="proceedToPayment()" class="btn btn-primary">Proceed to Payment</button>

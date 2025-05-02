@@ -13,6 +13,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -29,5 +30,7 @@ export const appRoutes: Routes = [
   {path:'wishlist',component:WishlistComponent},
   {path:"account",component:AccountComponent},
   {path:'profile',component:ProfileComponent},
-  {path:'helpcenter',component:HelpCenterComponent}
+  {path:'helpcenter',component:HelpCenterComponent},
+  {path:'thankyou',component:ThankYouComponent}
+
 ];

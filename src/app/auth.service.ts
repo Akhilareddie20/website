@@ -71,9 +71,13 @@ export class AuthService {
     return this.http.get<any[]>(`${this.apiUrl}/cart`);
   } 
   saveCartItems(cartItems: CartItem[]): Observable<any> {
+    // return this.http.post<any>('http://localhost:8000/api/save', cartItems, {
+    //   headers: { 'Content-Type': 'application/json' }
+    // });
     return this.http.post<any>('http://localhost:8000/api/save', cartItems, {
       headers: { 'Content-Type': 'application/json' }
     });
+    
   }
   
   
